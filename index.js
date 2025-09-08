@@ -17,6 +17,14 @@ const io = new Server(server);
 //? Serving HTML File
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+//? Define a connection event handler
+//* whenever new client establishes new connection, this event happend and we get socket object in the callback as parameter which
+//* represents that client.
+
+io.on('connection', (socket) => {
+  console.log('New Client connects to Server');
+});
+
 //? Routes
 app.get('/', (req, res) => {
   return res.sendFile(join(__dirname, 'index.html'));
