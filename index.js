@@ -22,7 +22,10 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 //* represents that client.
 
 io.on('connection', (socket) => {
-  console.log('New Client connects to Server');
+  console.log('New Client connects to Server ✔');
+  socket.on('disconnect', () => {
+    console.log('Client disconnected from Server ❌');
+  });
 });
 
 //? Routes
