@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Basic Chat App</title>
+    <style>
+      #messages {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      #messages > li {
+        padding: 5px 10px;
+      }
+
+      #messages > li:nth-child(odd) {
+        background: #eee;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Basic Chat App</h1>
+    <ul id="messages"></ul>
+
+    <form id="form">
+      <input id="input" autocomplete="off" />
+      <button type="submit" id="submitBtn">Send</button>
+    </form>
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="module">
+      const socket = io();
+      const messages = document.getElementById('messages');
+      const input = document.getElementById('input');
+      const form = document.getElementById('form');
+
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        socket.emit('newMessage', input.value);
+      });
+
+      socket.on('connect', () => {
+        console.log('Connected to server ✔');
+      });
+
+      socket.on('newMessage', (message) => {
+        const messageTile = document.createElement('li');
+        messageTile.textContent = message;
+        messages.appendChild(messageTile);
+        input.value = '';
+      });
+
+      socket.on('disconnect', () => {
+        console.log('Disconnected from Server ❌');
+      });
+    </script>
+  </body>
+</html>
