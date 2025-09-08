@@ -18,6 +18,10 @@
       socket.on('disconnect', () => {
         console.log('Disconnected from Server ❌');
       });
+
+      socket.on('newMessage', (message) => {
+        console.log('New message arrived', message);
+      });
     </script>
   </body>
 </html>

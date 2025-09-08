@@ -26,6 +26,7 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log('Client disconnected from Server ❌');
   });
+  socket.emit('newMessage', 'Server is sending that data to the client');
 });
 
 //? Routes
